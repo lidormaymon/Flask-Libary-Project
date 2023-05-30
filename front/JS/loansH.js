@@ -181,10 +181,8 @@ const openDele = (id) => {
 const deleteLoan = async () => {
     const deleteButton = document.getElementById('yesBtn');
     const id = deleteButton.getAttribute('data-id');
-    await axios.delete(`${MY_SERVER}/delete-loan/${id}`).then(() => {
-    }).finally(() => {
-        toastr.success('Loan has been deleted!', 'Success');
-    })
+    await axios.delete(`${MY_SERVER}/delete-loan/${id}`)
+    toastr.success('Loan has been deleted!', 'Success');
     showBooks()
 }
 
