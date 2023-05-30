@@ -2,7 +2,42 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../CSS/active_loans.css">
+    <style>
+        input {
+            width: 100%;
+            height: 45px;
+            border-radius: 30px;
+        }
+
+
+        .MSG {
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            position: relative;
+            top: 30px;
+            text-align: center;
+        }
+
+
+        #search-loan-book {
+            display: none;
+        }
+
+        .searchBox {
+            height: 50px;
+            width: 15px;
+        }
+
+
+        .checkbox-container {
+            display: flex;
+        align-items: center;
+        }
+
+        .checkbox-container label {
+        margin-right: 10px;
+        }
+    </style>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
@@ -10,7 +45,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active Loans</title>
+    <title>Loans</title>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 </head>
 
@@ -33,35 +68,7 @@
             </ul>
         </div>
     </header>
-    <div id="editLoanDisplay">
-        <div class="container">
-            <i class="uil uil-multiply" id="closeButton" onclick="closeEdit()"></i>
-            <div class="title">Edit loan</div>
-            Customer ID<br>
-            <input id="customer_id"><br>
-            Book ID<br>
-            <input id="book_id"><br>
-            Loan Date<br>
-            <input id="loan_date"><br>
-            Return Date<br>
-            <input id="return_date"><br>
-            <button id="sumbitLoan"">Sumbit</button>
-        </div>
-    </div>
-    <div id="displayDelete">
-        <div class="container-delete">
-            <i class="uil uil-multiply" id="closeButton" onclick="closeDele()"></i>
-            <div class="warning">WARNING!!!</div>
-            <div class="MSG">
-                Are you sure you want to return the loan?
-            </div>
-            <div class="buttons-delete">
-                <button id="yesBtn" onclick="returnLoan()">Yes</button>
-                <button id="noBtn" onclick="closeDele()">No</button>
-            </div>
-        </div>
-    </div>
-    <h1>Active Loans</h1>
+    <h1>View all loans(Active loans, and returned)</h1>
     <div class="title">Search loan:</div><br>
     <div>Select the filter you wish to use:</div>
     <div class="checkbox-container">
@@ -69,16 +76,17 @@
         <label for="searchID">Customer</label>
         <input type="radio" id="searchBookBox"onchange="checkBox()"  class="searchBox" name="searchBox">
         <label for="searchID">Book</label>
-      </div>
+    </div>
     <input id="search-loan-customer" placeholder="Search customer name..." type="search" oninput="searchLoanCustomer()">
     <input id="search-loan-book" placeholder="Search book name..." type="search" oninput="searchLoanBook()"><br>
-    <div id="searchMSG"></div><br>
+    <div id="searchMSG"></div>
+    <div class="title" id="count_loans"></div>
     <div id="loansDisplay"></div>
 
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
-    <script src="../JS/active_loans.js"></script>
+    <script src="../JS/loansH.js"></script>
 </body>
 </html>

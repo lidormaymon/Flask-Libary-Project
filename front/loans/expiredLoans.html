@@ -2,127 +2,11 @@
 <html lang="en">
 
 <head>
-    <style>
-
-
-        input {
-            width: 100%;
-            height: 45px;
-            border-radius: 30px;
-        }
-
-        #editLoanDisplay {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            height: 550px;
-            width: 550px;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 30px;
-            box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
-            -webkit-box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
-            -moz-box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
-            z-index: 100;
-            display: none;
-        }
-
-        #sumbitLoan {
-            height: 50px;
-            width: 200px;
-            margin-top: 5px;
-            position: relative;
-            background-color: #333;
-            border: none;
-            color: white;
-            border-radius: 30px;
-            cursor: pointer;
-            left: 200px;
-            top: 50px;
-
-        }
-
-        #sumbitLoan:hover {
-            background-color: #5e5c5c;
-        }
-
-        #closeButton {
-            font-size: 22px;
-            cursor: pointer;
-            position: relative;
-            left: 95%;
-        }
-
-        #displayDelete {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            height: 400px;
-            width: 550px;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 30px;
-            box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
-            -webkit-box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
-            -moz-box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
-            z-index: 100;
-            display: none;
-        }
-
-        .warning {
-            font-size: 30px;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .MSG {
-            font-size: 20px;
-            font-family: Arial, Helvetica, sans-serif;
-            position: relative;
-            top: 30px;
-            text-align: center;
-        }
-
-        .buttons-delete {
-            position: relative;
-            top: 150px;
-            left: 180px;
-        }
-
-        #yesBtn {
-            background-color: #4CAF50;
-            color: #fff;
-            height: 40px;
-            width: 100px;
-            border: none;
-            cursor: pointer;
-        }
-
-        #noBtn {
-            background-color: #f44336;
-            cursor: pointer;
-            color: #fff;
-            height: 40px;
-            width: 100px;
-            border: none;
-        }
-
-        #yesBtn:hover {
-            background-color: #6acf6d;
-        }
-
-        #noBtn:hover {
-            background-color: #e06b63;
-        }
-    </style>
+    <link rel="stylesheet" href="../CSS/expiredLoans.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../CSS/styles.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -137,12 +21,12 @@
                 <li><a href="../../index.html">Home</a></li>
                 <li><a href="../books/booksH.html">Books</a></li>
                 <li><a href="../customers/customersH.html">Customers</a></li>
-                <li><a href="loans.H.html">Loans</a></li>
+                <li><a href="loansH.html">Loans</a></li>
             </ul>
         </nav>
         <div class="subnavbar">
             <ul>
-                <li><a href="loans.H.html">List</a></li>
+                <li><a href="loansH.html">List</a></li>
                 <li><a href="loanbook.html">Loan</a></li>
                 <li><a href="active_loans.html">Active Loans</a></li>
                 <li><a href="expiredLoans.html">Expired Loans</a></li>
@@ -184,173 +68,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
-     <!--NOTE: SCRIPT ENTRY!!!-->
-    <script>
-        const MY_SERVER = 'https://flask-libarly-sql-alchemy.onrender.com'
-        const currentDate = new Date();
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-        const currentDateFormat = currentDate.toLocaleDateString('en-GB', options);
-        console.log(currentDateFormat);
-
-        //Function to display all the loans that passed their return date
-        const showExpiredLoans = async () => {
-            loans = await axios.get(MY_SERVER + '/show-expired-loans');
-            display.innerHTML = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Customer Name</th>
-                            <th>Book Name</th>
-                            <th>Loan Date</th>
-                            <th>Return Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${loans.data.map(data => `
-                        <tr>
-                            <td>${data.id}</td>
-                            <td>${data.customer_name}</td>
-                            <td>${data.book_name}</td>
-                            <td>${data.loandate}</td>
-                            <td>${data.returndate}</td>
-                            <td><button onclick="openReturnDisplay(${data.id})">Return</button>
-                            <button onclick="updateLoan(${data.id})">Edit</button></td>
-                        </tr> `
-            )
-                    .join("")}
-                    </tbody>
-                </table>`
-        };
-
-        showExpiredLoans()
-
-    //Update loans functions
-        //Popping an edit window
-        const openEdit = () => {
-            const displayEdit = document.getElementById('editLoanDisplay')
-            displayEdit.style.display = 'block'
-            document.body.style.backgroundColor = '#DCDCDC'
-        }
-
-        //Filling the inputs with the actual data of the loanID
-        const updateLoan = async (id) => {
-            openEdit()
-            //Declaring viralbes for inputs
-            const customerID = document.getElementById('customer_id')
-            const bookID = document.getElementById('book_id')
-            const loanDate = document.getElementById('loan_date')
-            const returnDate = document.getElementById('return_date')
-            //Server virable
-            const loansServer = await axios.get(MY_SERVER + '/show-loans');
-            const loan = loansServer.data.find(data => data.id == id)
-            //Entering values of data to inputs
-            customerID.value = loan.custid
-            bookID.value = loan.bookid
-            loanDate.value = loan.loandate
-            returnDate.value = loan.returndate
-
-
-            const submitButton = document.getElementById('sumbitLoan');
-            submitButton.addEventListener('click', () => {
-                submitEdit(id);
-            });
-
-        }
-
-        //Updating the data by put method
-        const submitEdit = async (loanID) => {
-            const customerID = document.getElementById('customer_id').value
-            const bookID = document.getElementById('book_id').value
-            const loanDate = document.getElementById('loan_date').value
-            const returnDate = document.getElementById('return_date').value
-
-            const data = {
-                custid: customerID,
-                bookid: bookID,
-                loandate: loanDate,
-                returndate:returnDate
-            };
-
-            if (!customerID || !bookID || !loanDate || !returnDate) {
-                toastr.error('Must fill all the fields', 'Error')
-            }else {
-                await axios.put(MY_SERVER + '/loans-update/' + loanID, data).then(() => {
-                console.log(data)
-                }).finally(() => {
-                 toastr.success('Loan has been edited!', 'Success');
-                })
-            }
-        };
-
-
-        //Closing the edit window
-        const closeEdit = () => {
-            const displayEdit = document.getElementById('editLoanDisplay')
-            displayEdit.style.display = 'none'
-            document.body.style.backgroundColor = '#fff'
-        }
-
-        //Popping warning window before deleting the loan
-        const openReturnDisplay = (id) => {
-                const displayDele = document.getElementById('displayDelete')
-                displayDele.style.display = 'block'
-                document.body.style.backgroundColor = '#DCDCDC'
-                document.body.style.overflow = 'hidden'
-                const deleteButton = document.getElementById('yesBtn');
-                deleteButton.setAttribute('data-id', id);
-            }
-        
-        //Deleting the loan, its begin called in yesBtn
-        const returnLoan = async () => {
-            const deleteButton = document.getElementById('yesBtn');
-            const id = deleteButton.getAttribute('data-id');
-            const loansData = await axios.get(MY_SERVER + '/show-loans');
-            const loan = loansData.data.find(data => data.id == id);
-            const data = {
-                custid: loan.custid,
-                bookid: loan.bookid,
-                loandate: loan.loandate,
-                returndate: loan.returndate,
-                status: 'Returned'
-            };
-            updateQuantity(loan.bookid);
-            await axios.put(MY_SERVER + '/loans-update/' + id, data).then(() => {
-                            console.log(data)
-                        }).finally(() => {
-                            toastr.success('Book has been returned successfully!', 'Success');
-                        })
-            
-        }
-
-        //Updating the quantintity of the book the was returned in Books by +1 as it was returned
-        const updateQuantity = async (bookID) => {
-            const booksData = await axios.get(MY_SERVER + '/show-books');
-            const book = booksData.data.find(data => data.id === bookID);
-            const bookQuantity = book.quantity;
-            console.log(bookQuantity);
-            const updatedQuantity = bookQuantity + 1; // Updating the quantity
-
-            const data = {
-                name: book.name,
-                author: book.author,
-                date_published: book.date_published,
-                quantity: updatedQuantity,
-                type: book.type
-            };
-
-            await axios.put(MY_SERVER + '/books-update/' + bookID, data);
-        };
-        
-        //Closing the warning window
-        const closeDele = () => {
-            const displayDele = document.getElementById('displayDelete')
-            displayDele.style.display = 'none'
-            document.body.style.backgroundColor = '#fff'
-            document.body.style.overflow = 'visible'
-        }
-
-    </script>
+    <script src="../JS/expired_loans.js"></script>
 </body>
 </html>
