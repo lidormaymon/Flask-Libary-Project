@@ -264,6 +264,7 @@ const returnLoan = async () => {
                     console.log(data)
                 }).finally(() => {
                     toastr.success('Book has been returned successfully!', 'Success');
+                    showLoans()
                 })
     
 }
