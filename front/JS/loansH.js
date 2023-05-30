@@ -183,7 +183,7 @@ const deleteLoan = async () => {
     const id = deleteButton.getAttribute('data-id');
     await axios.delete(`${MY_SERVER}/delete-loan/${id}`)
     toastr.success('Loan has been deleted!', 'Success');
-    showBooks()
+    showLoans()
 }
 
 //Closing the window and its called in no button and the X icon that was taken from IconScout
