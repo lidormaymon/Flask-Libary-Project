@@ -15,6 +15,9 @@ navigate to the back folder by typing "cd/back", and then typing "pip install -r
 After that you're clear to run app.py, and open index.html, to use the browser.<br>
 And make sure you change all of your MY_SERVER virable to your localhost server
 
+
+Backend server - https://flask-libarly-sql-alchemy.onrender.com/
+
 Besides that if you wish to just browser the server without installing it on your own computer<br>
 here's the link to the web that's deployed, https://lidormaymon.github.io/Flask-Libary-Project/index.html .<br>
 Enjoy!
