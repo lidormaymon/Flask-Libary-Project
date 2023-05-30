@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        input {
+            width: 100%;
+            height: 45px;
+            border-radius: 30px;
+        }
+
+        #editLoanDisplay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 550px;
+            width: 550px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
+            -webkit-box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
+            -moz-box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
+            z-index: 100;
+            display: none;
+        }
+
+        #sumbitLoan {
+            height: 50px;
+            width: 200px;
+            margin-top: 5px;
+            position: relative;
+            background-color: #333;
+            border: none;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            left: 200px;
+            top: 50px;
+        }
+
+        #sumbitLoan:hover {
+            background-color: #5e5c5c;
+        }
+
+        #closeButton {
+            font-size: 22px;
+            cursor: pointer;
+            position: relative;
+            left: 95%;
+        }
+
+        #displayDelete {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 400px;
+            width: 550px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
+            -webkit-box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
+            -moz-box-shadow: 10px 0px 400px 10px rgba(51, 51, 51, 0.71);
+            z-index: 1;
+            display: none;
+        }
+
+        .warning {
+            font-size: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .MSG {
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            position: relative;
+            top: 30px;
+            text-align: center;
+        }
+
+        .buttons-delete {
+            position: relative;
+            top: 150px;
+            left: 180px;
+        }
+
+        #yesBtn {
+            background-color: #4CAF50;
+            color: #fff;
+            height: 40px;
+            width: 100px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #noBtn {
+            background-color: #f44336;
+            cursor: pointer;
+            color: #fff;
+            height: 40px;
+            width: 100px;
+            border: none;
+        }
+
+        #yesBtn:hover {
+            background-color: #6acf6d;
+        }
+
+        #noBtn:hover {
+            background-color: #e06b63;
+        }
+
+        #search-loan-book {
+            display: none;
+        }
+
+        .searchBox {
+            height: 50px;
+            width: 15px;
+        }
+
+
+        .checkbox-container {
+            display: flex;
+        align-items: center;
+        }
+
+        .checkbox-container label {
+        margin-right: 10px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/front/styles.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Loans</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/front/index.html">Home</a></li>
+                <li><a href="/front/books/booksH.html">Books</a></li>
+                <li><a href="/front/customers/customersH.html">Customers</a></li>
+                <li><a href="loans.H.html">Loans</a></li>
+            </ul>
+        </nav>
+        <div class="subnavbar">
+            <ul>
+                <li><a href="loans.H.html">List</a></li>
+                <li><a href="loanbook.html">Loan</a></li>
+                <li><a href="active_loans.html">Active Loans</a></li>
+                <li><a href="expiredLoans.html">Expired Loans</a></li>
+            </ul>
+        </div>
+    </header>
+    <div id="editLoanDisplay">
+        <div class="container">
+            <i class="uil uil-multiply" id="closeButton" onclick="closeEdit()"></i>
+            <div class="title">Edit loan</div>
+            Customer ID<br>
+            <input id="customer_id"><br>
+            Book ID<br>
+            <input id="book_id"><br>
+            Loan Date<br>
+            <input id="loan_date"><br>
+            Return Date<br>
+            <input id="return_date"><br>
+            <button id="sumbitLoan"">Sumbit</button>
+        </div>
+    </div>
+    <div id="displayDelete">
+        <div class="container-delete">
+            <i class="uil uil-multiply" id="closeButton" onclick="closeDele()"></i>
+            <div class="warning">WARNING!!!</div>
+            <div class="MSG">
+                Are you sure you want to return the loan?
+            </div>
+            <div class="buttons-delete">
+                <button id="yesBtn" onclick="returnLoan()">Yes</button>
+                <button id="noBtn" onclick="closeDele()">No</button>
+            </div>
+        </div>
+    </div>
+    <h1>Active Loans</h1>
+    <div class="title">Search loan:</div><br>
+    <div>Select the filter you wish to use:</div>
+    <div class="checkbox-container">
+        <input type="radio" id="searchCustomerBox" onchange="checkBox()" class="searchBox" name="searchBox"><!--Giving it name so it wouldn't be able to check both of them -->
+        <label for="searchID">Customer</label>
+        <input type="radio" id="searchBookBox"onchange="checkBox()"  class="searchBox" name="searchBox">
+        <label for="searchID">Book</label>
+      </div>
+    <input id="search-loan-customer" placeholder="Search customer name..." type="search" oninput="searchLoanCustomer()">
+    <input id="search-loan-book" placeholder="Search book name..." type="search" oninput="searchLoanBook()"><br>
+    <div id="searchMSG"></div><br>
+    <div id="loansDisplay"></div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
+     <!--NOTE: SCRIPT ENTRY!!!-->
+    <script>
+        const MY_SERVER = 'https://flask-libarly-sql-alchemy.onrender.com'
+        const showLoans = async () => {
+        const loansResponse = await axios.get(MY_SERVER + '/show-loans');
+        const loansData = loansResponse.data;
+  
+        const activeLoans = loansData.filter((loan) => loan.status === 'Active');
+
+        const loansDisplay = document.getElementById('loansDisplay');
+        loansDisplay.innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer Name</th>
+                    <th>Book Name</th>
+                    <th>Loan Date</th>
+                    <th>Return Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        <tbody>
+        ${activeLoans.map((loan) => `
+          <tr>
+            <td>${loan.id}</td>
+            <td>${loan.customer_name}</td>
+            <td>${loan.book_name}</td>
+            <td>${loan.loandate}</td>
+            <td>${loan.returndate}</td>
+            <td>
+              <button onclick="openReturnDisplay(${loan.id})">Return</button>
+              <button onclick="updateLoan(${loan.id})">Edit</button>
+            </td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>`;
+    };
+
+
+        showLoans()
+
+
+
+
+        //SEARCH LOANS FUNCTION
+            //CHECKBOX FUNCTIONS
+            const checkBox = () => {
+                const searchCustomerBox = document.getElementById('searchCustomerBox')
+                const searchBookBox = document.getElementById('searchBookBox')
+
+                const searchBook = document.getElementById('search-loan-book')
+                const searchCustomer = document.getElementById('search-loan-customer')
+                if (searchCustomerBox.checked) {
+                    searchBook.style.display = 'none'
+                    searchCustomer.style.display = 'block'
+                    showLoans()
+                }else if(searchBookBox.checked) {
+                    searchCustomer.style.display = 'none'
+                    searchBook.style.display = 'block'
+                    showLoans()
+                }}
+
+            
+            //Searching cucstomer function
+            const searchLoanCustomer = async () => {
+                const searchCustomerCap = document.getElementById('search-loan-customer');
+                const searchCustomer = searchCustomerCap.value.toLowerCase();
+                const response = await axios.get(`${MY_SERVER}/search-active-loan-customer?search=${searchCustomer}`);
+                const filteredData = response.data;
+
+                
+                //Checking if the input value exist in the database
+                if (filteredData.some(loan =>
+                    loan.customername.toLowerCase().includes(searchCustomer)
+                )) {
+                    loansDisplay.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer Name</th>
+                            <th>Book Name</th>
+                            <th>Loan Date</th>
+                            <th>Return Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${filteredData
+                            .map(
+                                data => `
+                                    <tr>
+                                        <td>${data.id}</td>
+                                        <td>${data.customername}</td>
+                                        <td>${data.bookname}</td>
+                                        <td>${data.loandate}</td>
+                                        <td>${data.returndate}</td>
+
+                                        <td>
+                                            <button onclick="openDele(${data.id})">Return</button>
+                                            <button onclick="updateBook(${data.id})">Edit</button>
+                                        </td>
+                                    </tr>`
+                            )
+                            .join('')}
+                    </tbody>
+                </table>`;
+                    searchMSG.innerHTML = ''; // Clear any previous "Book not found" message
+                } else {
+                    // No books found, display a message
+                    loansDisplay.innerHTML = '';
+                    searchMSG.innerHTML = 'Customer not found';
+                    searchMSG.style.color = 'red';
+                }
+            }
+
+            //Search book function
+            const searchLoanBook = async () => {
+                const searchBookCap = document.getElementById('search-loan-book');
+                const searchBook = searchBookCap.value.toLowerCase();
+
+                const response = await axios.get(`${MY_SERVER}/search-loan-book?search=${searchBook}`);
+                const filteredData = response.data;
+
+                
+                //Checking if the input value exist in the database
+                if (filteredData.some(loan =>
+                    loan.bookname.toLowerCase().includes(searchBook)
+                )) {
+                    loansDisplay.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer Name</th>
+                            <th>Book Name</th>
+                            <th>Loan Date</th>
+                            <th>Return Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${filteredData
+                            .map(
+                                data => `
+                                    <tr>
+                                        <td>${data.id}</td>
+                                        <td>${data.customername}</td>
+                                        <td>${data.bookname}</td>
+                                        <td>${data.loandate}</td>
+                                        <td>${data.returndate}</td>
+                                        <td>
+                                            <button onclick="openDele(${data.id})">Delete</button>
+                                            <button onclick="updateBook(${data.id})">Edit</button>
+                                        </td>
+                                    </tr>`
+                            )
+                            .join('')}
+                    </tbody>
+                </table>`;
+                    searchMSG.innerHTML = ''; // Clear any previous "Book not found" message
+                } else {
+                    // No books found, display a message
+                    loansDisplay.innerHTML = '';
+                    searchMSG.innerHTML = 'Book not found';
+                    searchMSG.style.color = 'red';
+                }
+            }
+
+
+
+        const openEdit = () => {
+            const displayEdit = document.getElementById('editLoanDisplay')
+            displayEdit.style.display = 'block'
+            document.body.style.backgroundColor = '#DCDCDC'
+        }
+
+        const updateLoan = async (id) => {
+            openEdit()
+            //Declaring viralbes for inputs
+            const customerName = document.getElementById('customer_id')
+            const bookName = document.getElementById('book_id')
+            const loanDate = document.getElementById('loan_date')
+            const returnDate = document.getElementById('return_date')
+            //Server virable
+            const loansServer = await axios.get(MY_SERVER + '/show-loans');
+            const loan = loansServer.data.find(data => data.id == id)
+            //Entering values of data to inputs
+            customerName.value = loan.custid
+            bookName.value = loan.bookid
+            loanDate.value = loan.loandate
+            returnDate.value = loan.returndate
+
+
+            const submitButton = document.getElementById('sumbitLoan');
+            submitButton.addEventListener('click', () => {
+                submitEdit(id);
+            });
+
+        }
+
+        const submitEdit = async (loanID) => {
+            const customerID = document.getElementById('customer_id').value
+            const bookID = document.getElementById('book_id').value
+            const loanDate = document.getElementById('loan_date').value
+            const returnDate = document.getElementById('return_date').value
+
+            const data = {
+                custid: customerID,
+                bookid: bookID,
+                loandate: loanDate,
+                returndate:returnDate,
+                status:'Active'
+            };
+
+            const booksServer = await axios.get(`${MY_SERVER}/show-books`);
+            const customersServer = await axios.get(MY_SERVER + '/show-customers');
+            const custData = customersServer.data;
+            const booksData = booksServer.data;
+
+            if (!customerID || !bookID || !loanDate || !returnDate) {
+                toastr.error('Must fill all the fields!', 'Error')
+            }if (custData.some(customer => customer.id == customerID) && booksData.some(book => book.id == bookID)) {
+                await axios.put(MY_SERVER + '/loans-update/' + loanID, data).then(() => {
+                console.log(data)
+                }).finally(() => {
+                 toastr.success('Loan has been edited!', 'Success');
+                })
+            }else{
+                toastr.error('Book ID or Customer ID do not exist!', 'Error')
+            }
+        };
+
+
+        const closeEdit = () => {
+            const displayEdit = document.getElementById('editLoanDisplay')
+            displayEdit.style.display = 'none'
+            document.body.style.backgroundColor = '#fff'
+        }
+
+        const openReturnDisplay = (id) => {
+                const displayDele = document.getElementById('displayDelete')
+                displayDele.style.display = 'block'
+                document.body.style.backgroundColor = '#DCDCDC'
+                document.body.style.overflow = 'hidden'
+                const deleteButton = document.getElementById('yesBtn');
+                deleteButton.setAttribute('data-id', id);
+            }
+
+        const returnLoan = async () => {
+            const deleteButton = document.getElementById('yesBtn');
+            const id = deleteButton.getAttribute('data-id');
+            const loansData = await axios.get(MY_SERVER + '/show-loans');
+            const loan = loansData.data.find(data => data.id == id);
+            const data = {
+                custid: loan.custid,
+                bookid: loan.bookid,
+                loandate: loan.loandate,
+                returndate: loan.returndate,
+                status: 'Returned'
+            };
+            updateQuantity(loan.bookid);
+            await axios.put(MY_SERVER + '/loans-update/' + id, data).then(() => {
+                            console.log(data)
+                        }).finally(() => {
+                            toastr.success('Book has been returned successfully!', 'Success');
+                        })
+            
+        }
+
+        const updateQuantity = async (bookID) => {
+            const booksData = await axios.get(MY_SERVER + '/show-books');
+            const book = booksData.data.find(data => data.id === bookID);
+            const bookQuantity = book.quantity;
+            console.log(bookQuantity);
+            const updatedQuantity = bookQuantity + 1; // Updating the quantity
+
+            const data = {
+                name: book.name,
+                author: book.author,
+                date_published: book.date_published,
+                quantity: updatedQuantity,
+                type: book.type
+            };
+
+            await axios.put(MY_SERVER + '/books-update/' + bookID, data);
+        };
+
+        const closeDele = () => {
+            const displayDele = document.getElementById('displayDelete')
+            displayDele.style.display = 'none'
+            document.body.style.backgroundColor = '#fff'
+            document.body.style.overflow = 'visible'
+        }
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+    </script>
+</body>
+</html>
