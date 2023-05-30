@@ -144,7 +144,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-    <link rel="stylesheet" href="front/styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -220,7 +220,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.min.js"></script>
         <!--NOTE: SCRIPT ENTRY!!!-->
         <script>
-            const MY_SERVER = 'http://127.0.0.1:5000'
+            const MY_SERVER = 'https://flask-libarly-sql-alchemy.onrender.com'
             //Display Books data in a table function
             const showBooks = async () => {
                 const booksData = await axios.get(MY_SERVER + '/show-books');
