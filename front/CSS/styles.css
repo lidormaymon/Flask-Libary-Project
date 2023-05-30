@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
+
+
+*{
+    margin: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    top: 0;
+    position: sticky;
+}
+
+nav {
+    padding: 20px;
+    z-index: 1;
+}
+
+nav ul {
+    list-style: none;
+
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+
+nav li a:hover {
+    background-color: #555;
+}
+
+.subnavbar {
+    background-color: #555;
+    color: #fff;
+    padding: 12px;
+    position: sticky;
+    z-index: 1;
+    top: 60px; /* Adjust the top value to create space below the header */
+}
+
+.subnavbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.subnavbar li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.subnavbar li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.subnavbar li a:hover {
+    background-color: #fff;
+    color: #555;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+      
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border: 2px solid #ddd;
+}
+
+td button {
+    height: 40px;
+    width: 100px;
+    margin-top: 5px;
+    position: relative;
+    left: 25px;
+    background-color: #333;
+    border: none;
+    color: white;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+td button:hover {
+    background-color: #525252;
+}
+      
+th {
+    background-color: #f2f2f2;
+    }
+
+
+
+.title {
+    font-size: 20px;
+    font-family:  Arial;
+    font-weight: 600;
+    color: #333;
+}
+
+
+
+
