@@ -4,6 +4,9 @@ manage their books, customers, and loans data.<br>
 You can add,remove,update and more features as of using toastr notifcations and etc..<br>
 
 ## Instructions:
+First step you must to, in order to run the web on your own computer by localhost,<br>
+is downloading this reposotioory https://github.com/lidormaymon/Flask-Libary-Localhost <br>
+as I made changed it for you the link of the server for localhost server<br>
 In order to use this client on YOUR LocalHost, and open it you first must make<br>
 yourself a virtual envioerment by typing "py -m virtualenvioerment env",<br>
 and in order to activate it, type "env/scripts/activate".<br>
