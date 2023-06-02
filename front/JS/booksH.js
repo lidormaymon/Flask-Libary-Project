@@ -61,17 +61,18 @@ const checkBox = () => {
         searchNameInput.style.display = 'none'
         searchAuthorInput.style.display = 'none'
         showBooks()
-    }else if(searchNameBox.checked) {
+    } else if (searchNameBox.checked) {
         searchNameInput.style.display = 'block'
         searchIdInput.style.display = 'none'
         searchAuthorInput.style.display = 'none'
         showBooks()
-    }else if(searchAuthorBox.checked){
+    } else if (searchAuthorBox.checked) {
         searchAuthorInput.style.display = 'block'
         searchNameInput.style.display = 'none'
         searchIdInput.style.display = 'none'
         showBooks()
-    }}
+    }
+}
 
 
 
@@ -83,7 +84,7 @@ const searchBooksName = async () => {
     const response = await axios.get(`${MY_SERVER}/search-books-name?search=${searchBook}`);
     const filteredData = response.data;
 
-    
+
     //Checking if the input value exist in the database
     if (filteredData.some(book =>
         book.name.toLowerCase().includes(searchBook)
@@ -138,7 +139,7 @@ const searchAuthorName = async () => {
     const response = await axios.get(`${MY_SERVER}/search-books-name?search=${searchBook}`);
     const filteredData = response.data;
 
-    
+
     //Checking if the input value exist in the database
     if (filteredData.some(book =>
         book.author.toLowerCase().includes(searchBook)
@@ -293,11 +294,12 @@ const submitEdit = async (bookID) => {
 
     if (!bookName || !author || !dateReleased || !bookQuantity || !typeBook) {
         toastr.error('You must fill all the fileds!', 'Error')
-    }else{
+    } else {
         await axios.put(MY_SERVER + '/books-update/' + bookID, data).then(() => {
-    }).finally(() => {
-     toastr.success('Book has been edited!', 'Success');
-    })
+        }).finally(() => {
+            toastr.success('Book has been edited!', 'Success');
+            showBooks()
+        })
     }
 };
 
@@ -327,9 +329,10 @@ const deleteBook = async () => {
     const id = deleteButton.getAttribute('data-id');
     await axios.delete(`${MY_SERVER}/delete-book/${id}`).then(() => {
     }).finally(() => {
-     toastr.success('Book has been deleted!', 'Success');
+        toastr.success('Book has been deleted!', 'Success');
+        showBooks()
     })
-    showBooks()
+    
 }
 
 //Closing the window and its called in no button and the X icon that was taken from IconScout
@@ -342,19 +345,19 @@ const closeDele = () => {
 
 //Defining the toastr attritubes
 toastr.options = {
-"closeButton": true,
-"debug": false,
-"newestOnTop": true,
-"progressBar": true,
-"positionClass": "toast-top-right",
-"preventDuplicates": false,
-"onclick": null,
-"showDuration": "300",
-"hideDuration": "1000",
-"timeOut": "5000",
-"extendedTimeOut": "1000",
-"showEasing": "swing",
-"hideEasing": "linear",
-"showMethod": "fadeIn",
-"hideMethod": "fadeOut"
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
 }

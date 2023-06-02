@@ -200,6 +200,7 @@ const submitEdit = async (bookID) => {
         console.log(data)
         }).finally(() => {
          toastr.success('Customer has been edited!', 'Success');
+         showCustomers()
         })
     }
 };
@@ -233,8 +234,8 @@ const deleteCustomer = async () => {
         console.log(data)
         }).finally(() => {
          toastr.success('Customer has been deleted!', 'Success');
+         showCustomers()
         })
-    showCustomers()
 }
 
 //Fucntion to close the warning window

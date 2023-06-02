@@ -92,6 +92,7 @@ const submitEdit = async (loanID) => {
         console.log(data)
         }).finally(() => {
          toastr.success('Loan has been edited!', 'Success');
+         showLoans()
         })
     }
 };
@@ -132,6 +133,7 @@ const returnLoan = async () => {
                     console.log(data)
                 }).finally(() => {
                     toastr.success('Book has been returned successfully!', 'Success');
+                    showLoans()
                 })
     
 }
