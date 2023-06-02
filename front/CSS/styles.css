@@ -20,7 +20,8 @@ nav {
 
 nav ul {
     list-style: none;
-
+    margin: 0;
+    padding: 0;
 }
 
 nav li {
@@ -49,8 +50,6 @@ nav li a:hover {
 
 .subnavbar ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 .subnavbar li {
